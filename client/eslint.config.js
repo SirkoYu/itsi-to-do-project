@@ -1,41 +1,24 @@
 import tsPlugin from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import vuePlugin from 'eslint-plugin-vue';
-import vueParser from 'vue-eslint-parser';
 
 export default [
   {
     ignores: ['dist/**', 'node_modules/**'],
   },
+  // eslint-plugin-vue v10 flat config — spreads the full recommended config array
+  // (includes vue-eslint-parser setup automatically, no need to import it separately)
+  ...vuePlugin.configs['flat/recommended'],
+  // TypeScript rules applied on top for both .ts and .vue files
   {
-    files: ['src/**/*.vue'],
+    files: ['src/**/*.ts', 'src/**/*.vue'],
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
     languageOptions: {
-      parser: vueParser,
       parserOptions: {
         parser: tsParser,
-        ecmaVersion: 2022,
-        sourceType: 'module',
       },
-    },
-    plugins: {
-      vue: vuePlugin,
-      '@typescript-eslint': tsPlugin,
-    },
-    rules: {
-      ...vuePlugin.configs['vue3-recommended'].rules,
-    },
-  },
-  {
-    files: ['src/**/*.ts'],
-    languageOptions: {
-      parser: tsParser,
-      parserOptions: {
-        ecmaVersion: 2022,
-        sourceType: 'module',
-      },
-    },
-    plugins: {
-      '@typescript-eslint': tsPlugin,
     },
     rules: {
       ...tsPlugin.configs.recommended.rules,
