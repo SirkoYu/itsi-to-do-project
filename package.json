@@ -1,0 +1,17 @@
+{
+  "name": "itsi-project",
+  "version": "1.0.0",
+  "description": "Todo app with user authentication — Node.js + Vue 3",
+  "private": true,
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=server & npm run dev --workspace=client",
+    "build": "npm run build --workspace=server && npm run build --workspace=client",
+    "test": "npm run test --workspace=server && npm run test --workspace=client",
+    "lint": "npm run lint --workspace=server && npm run lint --workspace=client",
+    "start": "npm run start --workspace=server"
+  }
+}
