@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "lint": "eslint src --ext .vue,.ts"
+    "lint": "eslint src"
   },
   "dependencies": {
     "axios": "^1.13.5",
@@ -27,6 +27,7 @@
     "@vue/test-utils": "^2.4.6",
     "eslint": "^9.24.0",
     "eslint-plugin-vue": "^10.8.0",
+    "vue-eslint-parser": "^9.4.3",
     "jsdom": "^26.1.0",
     "tailwindcss": "^4.2.0",
     "typescript": "^5.9.3",

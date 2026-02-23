@@ -8,7 +8,7 @@
     "build": "rimraf build && tsc --project tsconfig.json",
     "start": "node build/index.js",
     "test": "jest --forceExit --detectOpenHandles",
-    "lint": "eslint src --ext .ts"
+    "lint": "eslint src"
   },
   "dependencies": {
     "bcryptjs": "^3.0.3",
