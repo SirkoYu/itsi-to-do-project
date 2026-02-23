@@ -6,22 +6,47 @@ export default [
   {
     ignores: ['dist/**', 'node_modules/**'],
   },
-  // eslint-plugin-vue v10 flat config — spreads the full recommended config array
-  // (includes vue-eslint-parser setup automatically, no need to import it separately)
+
+  // Vue flat config — sets up vue-eslint-parser and Vue rules for .vue files
   ...vuePlugin.configs['flat/recommended'],
-  // TypeScript rules applied on top for both .ts and .vue files
+
+  // Explicitly restore TypeScript parser for .ts files.
+  // Required because flat/recommended sets vue-eslint-parser globally (no files filter),
+  // which breaks parsing of plain .ts files.
   {
-    files: ['src/**/*.ts', 'src/**/*.vue'],
+    files: ['src/**/*.ts'],
+    languageOptions: {
+      parser: tsParser,
+      parserOptions: {
+        ecmaVersion: 2022,
+        sourceType: 'module',
+      },
+    },
     plugins: {
       '@typescript-eslint': tsPlugin,
     },
+    rules: {
+      ...tsPlugin.configs.recommended.rules,
+    },
+  },
+
+  // For .vue files: delegate <script lang="ts"> blocks to tsParser,
+  // add TypeScript rules, and turn off noisy template formatting rules.
+  {
+    files: ['src/**/*.vue'],
     languageOptions: {
       parserOptions: {
         parser: tsParser,
       },
     },
+    plugins: {
+      '@typescript-eslint': tsPlugin,
+    },
     rules: {
       ...tsPlugin.configs.recommended.rules,
+      'vue/max-attributes-per-line': 'off',
+      'vue/singleline-html-element-content-newline': 'off',
+      'vue/html-self-closing': 'off',
     },
   },
 ];
